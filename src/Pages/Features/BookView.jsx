@@ -1,5 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 import { v4 as uuidv4 } from "uuid";
 import { deleteBook } from "./BookSlice";
 
@@ -31,7 +32,9 @@ const BookView = () => {
                   <td className="border text-center p-2">{title}</td>
                   <td className="border text-center p-2">{author}</td>
                   <td className="border text-center p-2">
-                    <button className="mx-2 border px-2 rounded-md shadow-md">Edit</button>
+                    <Link to="/edit-book" state={{ id, title, author }}>
+                      <button className="mx-2 border px-2 rounded-md shadow-md">Edit</button>
+                    </Link>
                     <button
                       onClick={() => {
                         handleDelete(id);
