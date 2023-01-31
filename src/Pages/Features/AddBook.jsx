@@ -1,19 +1,18 @@
 import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { v4 as uuidv4 } from "uuid";
 import { addBook } from "./BookSlice";
 
 const AddBook = () => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
-  const bookId = useSelector((state) => state.bookReducer.length);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    const book = { id: bookId + 1, title, author };
+    const book = { id: uuidv4(), title, author };
     dispatch(addBook(book));
     navigate("/books", { replace: true });
   };
@@ -32,6 +31,7 @@ const AddBook = () => {
               value={title}
               onChange={(e) => setTitle(e.target.value)}
               className="border ml-2 rounded-md p-1 outline-none"
+              required
             />
           </div>
           <div>
@@ -45,6 +45,7 @@ const AddBook = () => {
               value={author}
               onChange={(e) => setAuthor(e.target.value)}
               className="border ml-2 rounded-md p-1 outline-none"
+              required
             />
           </div>
         </div>
